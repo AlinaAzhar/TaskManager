@@ -4,7 +4,7 @@ This project was generated with [Angular CLI](https://github.com/angular/angular
 It is to note that i have created the service in this from scratch instead of going with the mock service provided to me. 
 
 ## Development server
-
+Run npm start 
 Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
 
 ## Code scaffolding
