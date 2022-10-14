@@ -1,0 +1,89 @@
+<header id="header">
+  <h1>
+    Task manager
+  </h1>
+</header>
+<div class="task-list-body">
+
+  <div class="container mt-2">
+    <div class="row">
+      <form [formGroup]="newTaskForm">
+        <div class="align-items-baseline justify-content-center row">
+          <div class="w-50">
+            <mat-form-field appearance="outline" class="w-100">
+              <mat-label>Task Name</mat-label>
+              <input matInput placeholder="Enter Task Name" name="taskName" formControlName="taskName">
+            </mat-form-field>
+          </div>
+          <div class="w-25">
+            <button type="button" [disabled]="newTaskForm.invalid" class="btn btn-primary ml-2 mb-3"
+              style="width: 100px;" (click)="addTask()">ADD</button>
+          </div>
+
+        </div>
+
+
+
+      </form>
+    </div>
+    <div>
+      <mat-form-field appearance="standard">
+        <mat-label>Filter</mat-label>
+        <input matInput (keyup)="applyFilter($event)" placeholder="Please enter value to filter" #input>
+      </mat-form-field>
+    </div>
+
+    <table mat-table [dataSource]="allTasks$" class="mat-elevation-z8 w-100">
+
+      <!--- Note that these columns can be defined in any order.
+            The actual rendered columns are set as a property on the row definition" -->
+
+      <!-- Position Column -->
+
+
+      <!-- Name Column -->
+      <ng-container matColumnDef="taskName">
+        <th mat-header-cell *matHeaderCellDef> Name </th>
+        <td mat-cell *matCellDef="let element" class="{{element.status!=='CLOSED' ? 'text-primary': ''}}">
+          <a target="_blank" (click)="goToDetails(element.id)" class="link-primary pointer"
+            *ngIf="element.status!=='CLOSED'; else taskCompleted">{{element.taskName}}</a>
+          <ng-template #taskCompleted>
+            {{element.taskName}}
+          </ng-template>
+        </td>
+      </ng-container>
+
+      <!-- Weight Column -->
+      <ng-container matColumnDef="createdBy">
+        <th mat-header-cell *matHeaderCellDef> Created By </th>
+        <td mat-cell *matCellDef="let element"> {{element.createdBy}} </td>
+      </ng-container>
+
+      <!-- Symbol Column -->
+      <ng-container matColumnDef="assignedTo">
+        <th mat-header-cell *matHeaderCellDef> Assigned To</th>
+        <td mat-cell *matCellDef="let element"> {{getAssignedTo(element.assignedTo) ?
+          getAssignedTo(element.assignedTo)?.userName: '-'}} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="status">
+        <th mat-header-cell *matHeaderCellDef> Status </th>
+        <td mat-cell *matCellDef="let element"> {{element.status}} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="delete">
+        <th mat-header-cell *matHeaderCellDef></th>
+        <td mat-cell *matCellDef="let element"><span class="material-icons text-danger pointer"
+            (click)="deleteTask(element.id)">
+            delete
+          </span></td>
+      </ng-container>
+
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+      <tr class="mat-row" *matNoDataRow>
+        <td class="mat-cell" colspan="4">No data matching the filter "{{input.value}}"</td>
+      </tr>
+    </table>
+  </div>
+</div>

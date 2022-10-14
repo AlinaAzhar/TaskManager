@@ -1,0 +1,68 @@
+<header id="header"> 
+  <h1>
+    Task Details
+  </h1>
+</header>
+<div class="container mt-5">
+    <div class="card" *ngIf="updatedTaskDetails">
+        <div class="card-header d-flex justify-content-between">
+          Task Details - {{updatedTaskDetails!.id}}
+          <span>Created on {{updatedTaskDetails.id | date}}</span>
+        </div>
+        <div class="card-body">
+          <h3 class="card-title text-primary fs-3"> <span class="fs-6 material-icons text-secondary">
+            task
+            </span>{{updatedTaskDetails.taskName}}</h3>
+          <div class="row p-3">
+            <div class="row">
+                <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12 row">
+                    <div class="col-6 fs-5">
+                        Status
+                    </div>
+                    <div class="col-6">
+                        <select class="form-select form-select-sm mb-3" aria-label=".form-select-lg example" [(ngModel)]="updatedTaskDetails.status">
+                            <option value="NEW">New</option>
+                            <option value="INPROGRESS">In Progress</option>
+                            <option value="CLOSED">Closed</option>
+                          </select>
+                    </div>
+                </div>
+                <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12 row">
+                    <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12 fs-5">
+                        Assigned To
+                    </div>
+                    <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                        
+                        <select class="form-select form-select-sm mb-3" aria-label=".form-select-lg example" [(ngModel)]="updatedTaskDetails.assignedTo">
+                            <option disabled selected>Assign to User</option>
+                            <option value="{{user.id}}" *ngFor="let user of users">{{user.userName}}</option>
+                            
+                          </select>
+                        
+                    </div>
+                
+                </div>
+
+                
+                
+    
+
+            </div>
+
+            <div class="row">
+              <div class="col-12">
+                <mat-form-field appearance="outline" class="w-100">
+                  <mat-label>Comment</mat-label>
+                  <textarea matInput [(ngModel)]="updatedTaskDetails.comments" placeholder="Please enter comments" name="comments" id="comments" rows="4" class="w-100"></textarea>
+                </mat-form-field>
+              </div>
+            </div>
+          </div>
+          <div class="row justify-content-between task-update-buttons">
+            <button type="button" class="btn btn-secondary ml-2 mb-3" style="width: 100px;" (click)="goToViewTasks()">Back</button>
+
+                <button type="button" [disabled]="checkIfChange()" class="btn btn-primary ml-2 mb-3" style="width: 100px;" (click)="updateTask()">Update</button>
+          </div>
+        </div>
+      </div>
+</div>

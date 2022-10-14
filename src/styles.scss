@@ -1,0 +1,23 @@
+/* You can add global styles to this file, and also import other style files */
+
+html, body { height: 100%; overflow: hidden; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+header {
+    background-color: #EEF1FF;
+    padding: 25px 25px;
+
+}
+
+h1 {
+    font-weight: 100;
+    text-align: center;
+    padding: 10px 10px;
+    font-size: 35px;
+    margin: 20px;
+
+}
+
+.task-list-body{
+    height: calc(100vh - 120px);
+    overflow-y: auto;
+}
